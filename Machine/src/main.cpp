@@ -1,18 +1,15 @@
 #include <Arduino.h>
+#include <Plotter.h>
 
-// put function declarations here:
-int myFunction(int, int);
+Plotter plotter;
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  plotter.moveTo(500, 100);
+  plotter.moveTo(0, 0);
+  plotter.moveTo(100, 500);
+  plotter.moveTo(0, 0);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  
 }
