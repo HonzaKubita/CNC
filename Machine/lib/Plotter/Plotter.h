@@ -9,9 +9,11 @@ class Plotter {
     int y;
     String state;
 
-    Plotter();
+    Plotter(int sizeX, int sizeY, int stepperDirX, int stepperStepX, int stepperDirY1, int stepperStepY1, int stepperDirY2, int stepperStepY2);
     void moveTo(int x, int y);
     void calibrate();
+    void stepX(int dir);
+    void stepY(int dir);
     void stop();
     void update();
 
@@ -24,6 +26,13 @@ class Plotter {
     int _sy;
     int _error;
     int _error2;
+
+    int _stepperDirX;
+    int _stepperStepX;
+    int _stepperDirY1;
+    int _stepperStepY1;
+    int _stepperDirY2;
+    int _stepperStepY2;
     void _updateMoveTo();
     void _updateCalibrate();
 
