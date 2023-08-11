@@ -10,7 +10,7 @@
 
 // LCD (I2C)
 #define displayAddress 0x27
-#define displayChars 16
+#define displayChars 20
 #define displayRows 4
 
 // CNC Shield - Motors
