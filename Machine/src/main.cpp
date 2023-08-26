@@ -54,6 +54,4 @@ void loop() {
   // Call updates on plotter and ui
   //plotter.update();
   ui.update();
-  Serial.println("Update");
-  delay(1000);
 }

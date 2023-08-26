@@ -13,7 +13,8 @@ class Screen {
     Screen* from; // Link to the screen that redirected to this screen
     Screen(String screenTitle);
     void navigate(String direction); // Send user input to the screen
-    virtual void update(UI* ui, LiquidCrystal_I2C* lcd); // Rendering and updating
+    virtual void render(LiquidCrystal_I2C* lcd); // Render
+    virtual void update(UI* ui); // Rendering and updating
 
   protected:
     String _navigation; // Input from user in current update
@@ -31,7 +32,7 @@ class Menu : public Screen {
     Screen* getItem(int index); // item getter
 
     void render(LiquidCrystal_I2C* lcd); // Rendering the menu
-    void update(UI* ui, LiquidCrystal_I2C* lcd); // Updating the menu according to user input
+    void update(UI* ui); // Updating the menu according to user input
   protected:
     Screen* _items[20]; // Items of the menu
     int _itemCount; // Number of items
@@ -45,10 +46,13 @@ class UI {
     void setScreen(Screen* newScreen); // Setting the current screen
     void init(); // Initialization function
     void update();
+    
+    void requestRender(); // Function for requesting the screen to be redrawn
 
   protected:
     Screen* _currentScreen; // Currently displayed screen
     LiquidCrystal_I2C* _lcd; // The lcd UI is getting rendered to
+    bool _renderRequest;
 };
 
 #endif // __UI_H__

@@ -13,7 +13,8 @@ void Screen::navigate(String navigation) {
   _navigation = navigation;
 }
 
-void Screen::update(UI* ui, LiquidCrystal_I2C* lcd) {}
+void Screen::render(LiquidCrystal_I2C* lcd) {}
+void Screen::update(UI* ui) {}
 
 
 // Menu class - Type of screen
@@ -99,14 +100,15 @@ void Menu::render(LiquidCrystal_I2C* lcd) {
   }
 }
 
-void Menu::update(UI* ui, LiquidCrystal_I2C* lcd) {
-  // Process navigation
+void Menu::update(UI* ui) {
+  // Process navigation and request render if navigation
   if (_navigation == "select") {
     // Item got selected
     // Change the ui currentScreen to the selected item
 
     // Select the screen in ui
     ui->setScreen(getItem(selectedItem));
+    ui->requestRender();
   }
 
   if (_navigation == "down") {
@@ -120,6 +122,7 @@ void Menu::update(UI* ui, LiquidCrystal_I2C* lcd) {
         scroll++;
       }
     }
+    ui->requestRender();
   }
 
   if (_navigation == "up") {
@@ -133,18 +136,20 @@ void Menu::update(UI* ui, LiquidCrystal_I2C* lcd) {
         scroll--;
       }
     }
+    ui->requestRender();
   }
-
-  // Render the updated menu
-  render(lcd);
 }
 
 
 // UI class
 
 UI::UI(LiquidCrystal_I2C* lcd) {
-  // Save info to private variables
+  // Initialize variable values
+  currentAction = "";
+
+  _currentScreen = nullptr;
   _lcd = lcd;
+  _renderRequest = true;
 }
 
 void UI::setScreen(Screen* newScreen) {
@@ -162,6 +167,15 @@ void UI::init() {
 void UI::update() {
   // Call render on the current screen
   if (_currentScreen) {
-    _currentScreen->update(this, _lcd);
+    _currentScreen->update(this);
+
+    if (_renderRequest) {
+      _currentScreen->render(_lcd);
+      _renderRequest = false;
+    }
   }
+}
+
+void UI::requestRender() {
+  _renderRequest = true;
 }
