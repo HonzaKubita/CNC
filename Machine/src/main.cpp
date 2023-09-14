@@ -13,8 +13,10 @@ Plotter plotter(0, 0, stepperDirX, stepperStepX, stepperDirY1, stepperStepY1, st
 
 // Create lcd object
 LiquidCrystal_I2C lcd(0x27, 20, 4);
+// Create rotary encoder object
+RotaryEncoder rotaryEncoder(encoderCLK, encoderDT, encoderSW);
 // Create ui object
-UI ui(&lcd);
+UI ui(&lcd, &rotaryEncoder);
 
 // Create all menus
 Menu mainMenu("Main menu");
@@ -26,15 +28,9 @@ Menu placeholder2("placeholder2");
 Menu placeholder3("placeholder3");
 
 void setup() {
-  // plotter.moveTo(500, 100);
-  // plotter.moveTo(0, 0);
-  // plotter.moveTo(100, 500);
-  // plotter.moveTo(0, 0);
-
   Serial.begin(9600);
 
   Serial.println("Setup start");
-
   ui.init();
 
   // Organize all screens
@@ -50,8 +46,7 @@ void setup() {
 }
 
 void loop() {
-
   // Call updates on plotter and ui
-  //plotter.update();
+  plotter.update();
   ui.update();
 }
