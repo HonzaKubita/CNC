@@ -33,7 +33,9 @@ class Plotter {
     int _stepperStepY1;
     int _stepperDirY2;
     int _stepperStepY2;
+
     void _updateMoveTo();
+    void _updateSteppers(bool doXStep, bool doYStep);
     void _updateCalibrate();
 
 };
