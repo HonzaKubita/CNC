@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <LiquidCrystal_I2C.h> // Library for LCD
+#include <RotaryEncoder.h> // Library for getting input from rotary encoder
 
 class UI;
 
@@ -13,8 +14,8 @@ class Screen {
     Screen* from; // Link to the screen that redirected to this screen
     Screen(String screenTitle);
     void navigate(String direction); // Send user input to the screen
-    virtual void render(LiquidCrystal_I2C* lcd); // Render
-    virtual void update(UI* ui); // Rendering and updating
+    virtual void render(LiquidCrystal_I2C* lcd); // Rendering
+    virtual void update(UI* ui); // Updating
 
   protected:
     String _navigation; // Input from user in current update
@@ -41,8 +42,7 @@ class Menu : public Screen {
 class UI {
   public:
     String currentAction; // Currently selected action by the user
-
-    UI(LiquidCrystal_I2C* lcd);
+    UI(LiquidCrystal_I2C* lcd, RotaryEncoder* rotaryEncoder);
     void setScreen(Screen* newScreen); // Setting the current screen
     void init(); // Initialization function
     void update();
@@ -52,6 +52,7 @@ class UI {
   protected:
     Screen* _currentScreen; // Currently displayed screen
     LiquidCrystal_I2C* _lcd; // The lcd UI is getting rendered to
+    RotaryEncoder* _rotaryEncoder; // Rotary encoder ui is getting input from
     bool _renderRequest;
 };
 
