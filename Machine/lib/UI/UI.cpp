@@ -189,10 +189,9 @@ void UI::update() {
     _currentScreen->navigate("down");
   }
 
-  // process button press
-  // if (_rotaryEncoder->gotClicked())
-  //   _currentScreen->navigate("select");
-  
+  // Process button press
+  if (_rotaryEncoder->gotClicked())
+    _currentScreen->navigate("select");
 
   // Call update and if requested render on the current screen
   if (_currentScreen) {

@@ -34,18 +34,19 @@ void RotaryEncoder::update() {
   _DTLastState = currentStateDT;
   
   // Process button click and press
-  if (digitalRead(_SW) == HIGH) {
+  if (digitalRead(_SW) == LOW) {
     _isPressed = true;
-    _SWLastState = HIGH;
 
-    if (_SWLastState == LOW) {
+    if (_SWLastState == HIGH) {
       _gotClicked = true;
     } else {
       _gotClicked = false;
     }
+
+    _SWLastState = LOW;
   }
   else {
-    _SWLastState = LOW;
+    _SWLastState = HIGH;
     _isPressed = false;
     _gotClicked = false;
   }
