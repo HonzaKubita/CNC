@@ -162,7 +162,8 @@ UI::UI(LiquidCrystal_I2C* lcd, RotaryEncoder* rotaryEncoder) {
 }
 
 void UI::setScreen(Screen* newScreen) {
-  newScreen->from = _currentScreen; // Tell the new screen which screen linked to it
+  if (!(newScreen == _currentScreen->from)) // If we are not going back to previous screen
+    newScreen->from = _currentScreen; // Tell the new screen which screen linked to it
   _currentScreen = newScreen; // Change the screen
 }
 
