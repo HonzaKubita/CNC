@@ -1,10 +1,10 @@
 {
     "folders": [
-      {
-        "path": "./Machine"
-      },
-      {
-        "path": "./App"
-      }
+        {
+            "path": "./Machine"
+        },
+        {
+            "path": "./App"
+        }
     ]
-  }
+}
